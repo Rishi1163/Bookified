@@ -1,9 +1,11 @@
 
 import type { Metadata } from "next";
 import { ClerkProvider, SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
+import { ui } from "@clerk/ui";
 import { Geist, Geist_Mono, IBM_Plex_Serif, Mona_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "sonner";
 
 
 const ibmPlexSerif = IBM_Plex_Serif({
@@ -46,9 +48,10 @@ export default function RootLayout({
       className={`${ibmPlexSerif.variable} ${monaSans.variable} relative font-sans h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ClerkProvider>
+        <ClerkProvider ui={ui}>
           <Navbar />
           {children}
+          <Toaster />
         </ClerkProvider>
       </body>
     </html>
