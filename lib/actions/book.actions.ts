@@ -75,7 +75,7 @@ export const saveBookSegments = async (bookId: string, clerkId: string, segments
             bookId,
             content: text,
             segmentIndex,
-            pageNumber: pageNumber ?? index + 1, // ✅ FIX
+            pageNumber: pageNumber ?? index + 1, 
             wordCount
         }))
 
@@ -117,6 +117,33 @@ export const getAllBooks = async() => {
         return {
             success: false,
             error: e
+        }
+    }
+}
+
+export const getBookBySlug = async (slug: string) => {
+    try {
+        await connectToDb()
+
+        const book = await Book.findOne({ slug }).lean()
+
+        if (!book) {
+            return {
+                success: false,
+                data: null
+            }
+        }
+
+        return {
+            success: true,
+            data: serializeData(book)
+        }
+    } catch (error) {
+        console.error("Error fetching book by slug", error)
+        return {
+            success: false,
+            data: null,
+            error: error instanceof Error ? error.message : String(error)
         }
     }
 }
