@@ -1,6 +1,5 @@
-import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 import { getBookBySlug } from "@/lib/actions/book.actions";
@@ -9,18 +8,12 @@ import VapiControls from "@/components/VapiControls";
 export default async function BookDetailsPage(
   props: PageProps<"/books/[slug]">
 ) {
-  const { userId } = await auth();
-
-  if (!userId) {
-    redirect("/");
-  }
-
   const { slug } = await props.params;
   const result = await getBookBySlug(slug);
   const book = result.success ? result.data : null;
 
   if (!book) {
-    redirect("/");
+    notFound();
   }
 
   return (
