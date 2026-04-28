@@ -5,6 +5,8 @@ import { ArrowLeft } from "lucide-react";
 import { getBookBySlug } from "@/lib/actions/book.actions";
 import VapiControls from "@/components/VapiControls";
 
+export const dynamic = "force-dynamic";
+
 export default async function BookDetailsPage(
   props: PageProps<"/books/[slug]">
 ) {

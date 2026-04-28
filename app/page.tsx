@@ -3,6 +3,8 @@ import HeroSection from '@/components/HeroSection'
 import { getAllBooks } from '@/lib/actions/book.actions'
 import React from 'react'
 
+export const dynamic = "force-dynamic"
+
 const page = async () => {
 
   const bookResults = await getAllBooks()
